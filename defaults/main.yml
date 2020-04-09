@@ -1,0 +1,22 @@
+base_apt_packages_addons:
+base_apt_cache_time: 3600
+
+# Additional groups to create
+base_additional_groups: []
+# base_additional_groups:
+#   - name: docker
+#     gid: 999
+
+# users to create and configure
+base_users: []
+# base_users:
+#   - name: user1
+#     group: user1
+#     groups:
+#       - sudo
+#     ssh_keys:
+#       - "ssh-rsa zfgezfhkzefzuefhefhziefbizfe name@device"
+
+base_ssh_users: []
+
+

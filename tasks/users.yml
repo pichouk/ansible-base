@@ -1,0 +1,32 @@
+- name: Creates primary groups
+  group:
+    name: "{{ item.group | default(item.name) }}"
+    state: present
+  loop: "{{ base_users }}"
+
+- name: Creates additional groups
+  group:
+    name: "{{ item.name }}"
+    gid: "{{ item.gid | default(omit) }}"
+    state: present
+  loop: "{{ base_additional_groups }}"
+
+- name: Creates users
+  user:
+    name: "{{ item.name }}"
+    uid: "{{ item.uid | default(omit) }}"
+    group: "{{ item.group | default(item.name) }}"
+    groups: "{{ item.groups | default([]) | union([item.group | default(item.name)]) | unique }}"
+    home: "{{ item.home | default('/home/' ~ item.name ) }}"
+    shell: /bin/bash
+    password: "{{ item.password | default(omit) }}"
+    update_password: on_create
+    system: "{{ item.system | default(omit) }}"
+    append: "{{ user.append | default('yes') }}"
+  loop: "{{ base_users }}"
+
+- name: Remove "debian" user
+  user:
+    name: debian
+    state: absent
+    remove: yes

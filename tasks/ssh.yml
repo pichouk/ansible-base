@@ -1,0 +1,17 @@
+- name: Deploys sshd config
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config.d/base
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restarts sshd
+
+- name: Configure authorized SSH keys
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.ssh_keys | default([]) | join('\n') }}"
+    state: present
+    exclusive: True
+  loop: "{{ base_users }}"

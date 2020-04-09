@@ -1,0 +1,12 @@
+---
+dependencies: []
+
+galaxy_info:
+  author: Kyâne Pichou
+  description: Base ansible role for servers
+  license: MIT
+  min_ansible_version: 2.14.4
+  platforms:
+    - name: Debian
+      versions:
+        - bookworm
