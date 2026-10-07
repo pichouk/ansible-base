@@ -1,12 +1,17 @@
 - name: Deploys sshd config
   template:
     src: sshd_config.j2
-    dest: /etc/ssh/sshd_config.d/base
+    dest: /etc/ssh/sshd_config.d/00-base.conf
     owner: root
     group: root
     mode: 0644
   notify:
-    - Restarts sshd
+    - Reload sshd
+
+- name: Removes old sshd config (ignored by sshd, no .conf suffix)
+  file:
+    path: /etc/ssh/sshd_config.d/base
+    state: absent
 
 - name: Configure authorized SSH keys
   authorized_key:
