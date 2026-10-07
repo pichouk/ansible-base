@@ -2,6 +2,10 @@
   tags:
     - apt
 
+- import_tasks: unattended-upgrades.yml
+  tags:
+    - unattended-upgrades
+
 - import_tasks: users.yml
   tags:
     - users
